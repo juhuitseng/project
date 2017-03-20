@@ -5,7 +5,7 @@
 
 SAMPLENAME1   = %%NAME1%%
 SAMPLENAME2   = %%NAME2%%
-VORTEXDIR     = /opt/PrismTech/HDE/x86_64.linux
+VORTEXDIR     = %%VORTEXPATH%%
 
 CC            = gcc
 CXX           = g++

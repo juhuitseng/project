@@ -11,6 +11,10 @@ def main():
 		exit(1)
 	project_name = sys.argv[1]
 	idl_filename = project_name + "Data.idl"
+	global VORTEXPATH
+	with open('VORTEXPATH', 'r') as fp:
+		VORTEXPATH = fp.read()
+		VORTEXPATH = VORTEXPATH.strip()
 
 	# Check if the 'sample' directory exists or not
 	if not os.path.exists('sample'):
@@ -56,6 +60,7 @@ def generate_pub_sub_makefile(project_name):
 			content = fp.read()
 			content = content.replace('%%NAME1%%', project_name.lower())
 			content = content.replace('%%NAME2%%', project_name)
+			content = content.replace('%%VORTEXPATH%%', VORTEXPATH)
 
 			target_makefilename = os.path.join(os.path.join(project_name, 'standalone'), makefilename)
 			with open(target_makefilename, 'w') as fpw:
@@ -70,6 +75,7 @@ def generate_pub_sub_makefile(project_name):
 			content = fp.read()
 			content = content.replace('%%NAME1%%', project_name.lower())
 			content = content.replace('%%NAME2%%', project_name)
+			content = content.replace('%%VORTEXPATH%%', VORTEXPATH)
 
 			target_makefilename = os.path.join(os.path.join(project_name, 'standalone'), makefilename)
 			with open(target_makefilename, 'w') as fpw:
@@ -88,6 +94,7 @@ def generate_makefile_types(project_name):
 			content = fp.read()
 			content = content.replace('%%NAME1%%', project_name.lower())
 			content = content.replace('%%NAME2%%', project_name)
+			content = content.replace('%%VORTEXPATH%%', VORTEXPATH)
 
 			target_makefilename = os.path.join(os.path.join(project_name, 'standalone'), makefilename)
 			with open(target_makefilename, 'w') as fpw:
