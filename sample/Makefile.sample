@@ -1,0 +1,26 @@
+# -*-Makefile-*-
+PROJNAME   = %%PROJNAME%%
+
+all: sacpp_$(PROJNAME)_types sacpp_$(PROJNAME)_pub sacpp_$(PROJNAME)_sub
+
+clean depend generated realclean check-syntax $(CUSTOM_TARGETS):
+	@$(MAKE) -f Makefile.sacpp_$(PROJNAME)_types $(@)
+	@$(MAKE) -f Makefile.sacpp_$(PROJNAME)_pub $(@)
+	@$(MAKE) -f Makefile.sacpp_$(PROJNAME)_sub $(@)
+
+.PHONY: sacpp_$(PROJNAME)_types
+sacpp_$(PROJNAME)_types:
+	@$(MAKE) -f Makefile.sacpp_$(PROJNAME)_types all
+
+.PHONY: sacpp_$(PROJNAME)_pub
+sacpp_$(PROJNAME)_pub: sacpp_$(PROJNAME)_types
+	@$(MAKE) -f Makefile.sacpp_$(PROJNAME)_pub all
+
+.PHONY: sacpp_$(PROJNAME)_sub
+sacpp_$(PROJNAME)_sub: sacpp_$(PROJNAME)_types
+	@$(MAKE) -f Makefile.sacpp_$(PROJNAME)_sub all
+
+project_name_list:
+	@echo sacpp_$(PROJNAME)_pub
+	@echo sacpp_$(PROJNAME)_sub
+	@echo sacpp_$(PROJNAME)_types
