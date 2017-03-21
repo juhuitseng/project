@@ -7,7 +7,7 @@ import os, sys, shutil
 
 def main():
 	if len(sys.argv) <= 1:
-		print("Usage: ./ddsproject project_name")
+		print("Usage: ./ddsproject project_name")        
 		exit(1)
 	project_name = sys.argv[1]
 	idl_filename = project_name + "Data.idl"
@@ -50,6 +50,7 @@ def main():
 	shutil.copy('sample/src/DDSEntityManager.cpp', os.path.join(project_name, 'src'))
 	generate_sourcefiles(project_name)
 	generate_pub_sub_makefile(project_name)
+	print("Project:{} has been successful generated!".format(project_name))
 	return 
 # the function to generate Makefile_sacpp_projectname_pub & Makefile_sacpp_projectname_sub
 def generate_pub_sub_makefile(project_name):
