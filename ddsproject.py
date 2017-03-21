@@ -12,10 +12,10 @@ def main():
 	project_name = sys.argv[1]
 	idl_filename = project_name + "Data.idl"
 	global VORTEXPATH
-	with open('VORTEXPATH', 'r') as fp:
-		VORTEXPATH = fp.read()
-		VORTEXPATH = VORTEXPATH.strip()
-
+	VORTEXPATH = os.environ['OSPL_HOME']
+	if not VORTEXPATH:
+		print("You have to source the release.com and set the correct OSPL_HOME first.")
+		exit(1)
 	# Check if the 'sample' directory exists or not
 	if not os.path.exists('sample'):
 		print("I need the 'sample' directory to generate the project files!")
@@ -119,23 +119,20 @@ def generate_makefile(project_name):
 	return 
 
 def generate_sourcefiles(project_name):
-	try:
-		with open('sample/src/sampleDataPublisher.cpp') as fp:
-			content = fp.read()
-			content = content.replace('HelloWorld', project_name)
-			target_sourcefilename = os.path.join(project_name, 'src/{}DataPublisher.cpp'.format(project_name))
-			with open(target_sourcefilename, 'w') as fpw:
-				fpw.write(content)
-		with open('sample/src/sampleDataSubscriber.cpp') as fp:
-			content = fp.read()
-			content = content.replace('HelloWorld', project_name)
-			target_sourcefilename = os.path.join(project_name, 'src/{}DataSubscriber.cpp'.format(project_name))
-			with open(target_sourcefilename, 'w') as fpw:
-				fpw.write(content)
-
-	except:
-		print("Project generating fail...(can't write the file)")
-		exit(1)
+	source_list = ['Publisher', 'Subscriber']
+	for source in source_list:
+		try:
+			with open('sample/src/sampleData{}.cpp'.format(source)) as fp:
+				content = fp.read()
+				if os.path.exists('COMMUNITY'):
+					content = '#define VORTEX_COMMUNITY\n' + content
+				content = content.replace('HelloWorld', project_name)
+				target_sourcefilename = os.path.join(project_name, 'src/{}Data{}.cpp'.format(project_name, source))
+				with open(target_sourcefilename, 'w') as fpw:
+					fpw.write(content)
+		except:
+			print("Project generating fail...(can't write the file)")
+			exit(1)
 	return 
 
 if __name__ == "__main__":

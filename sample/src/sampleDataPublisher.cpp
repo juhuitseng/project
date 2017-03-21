@@ -25,7 +25,12 @@
 #include <iostream>
 #include "DDSEntityManager.h"
 #include "ccpp_HelloWorldData.h"
-#include "os.h"
+#if defined VORTEX_COMMUNITY
+  #include "os.h"
+#else
+  #include "vortex_os.h"
+#endif
+
 
 #include "example_main.h"
 
