@@ -12,7 +12,11 @@ def main():
 	project_name = sys.argv[1]
 	idl_filename = project_name + "Data.idl"
 	global VORTEXPATH
-	VORTEXPATH = os.environ['OSPL_HOME']
+	try:
+		VORTEXPATH = os.environ['OSPL_HOME']
+	except:
+		print("You have to source the release.com and set the correct OSPL_HOME first.")
+		exit(1)
 	if not VORTEXPATH:
 		print("You have to source the release.com and set the correct OSPL_HOME first.")
 		exit(1)
