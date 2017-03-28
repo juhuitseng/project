@@ -1,5 +1,6 @@
 #!/usr/bin/python
-# Vortex DDS project generator (for Community edition)
+# Vortex DDS project generator version 1.2.0
+# Last updated: 03/28/2017
 
 
 import os, sys, shutil
@@ -48,6 +49,7 @@ def main():
 	# copy sample source files into src directory
 	generate_makefile_types(project_name)
 	generate_makefile(project_name)
+	shutil.copy('sample/src/higherfunc.h', os.path.join(project_name, 'src'))
 	shutil.copy('sample/src/CheckStatus.cpp', os.path.join(project_name, 'src'))
 	shutil.copy('sample/src/CheckStatus.h', os.path.join(project_name, 'src'))
 	shutil.copy('sample/src/DDSEntityManager.h', os.path.join(project_name, 'src'))
@@ -137,6 +139,19 @@ def generate_sourcefiles(project_name):
 		except:
 			print("Project generating fail...(can't write the file)")
 			exit(1)
+	try:
+		with open('sample/src/higherfunc.cpp') as fp:
+			content = fp.read()
+			if os.path.exists('COMMUNITY'):
+				content = '#define VORTEX_COMMUNITY\n' + content
+			content = content.replace('HelloWorld', project_name)
+			target_sourcefilename = os.path.join(project_name, 'src/higherfunc.cpp')
+			with open(target_sourcefilename, 'w') as fpw:
+				fpw.write(content)
+	except:
+		print("Project generating fail...(can't write the file)")
+		exit(1)
+
 	return 
 
 if __name__ == "__main__":

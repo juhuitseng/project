@@ -26,6 +26,7 @@
 #include <iostream>
 #include "DDSEntityManager.h"
 #include "ccpp_HelloWorldData.h"
+#include "higherfunc.h"
 #if defined VORTEX_COMMUNITY
   #include "os.h"
 #else
@@ -47,6 +48,31 @@ extern "C"
 
 int HelloWorldDataSubscriber(int argc, char *argv[])
 {
+
+  char topic_send[] = "Send";
+  char topic_response[] = "Response";
+  string message_from_send_topic;
+  char reply_message[] = "I got you";
+  char end_message[] = "~~End of the program~~";
+  bool quit = false;
+
+  cout << "Please input 'quit' to terminate the program!" << endl;
+  while(!quit) 
+  {
+    message_from_send_topic = getInformation(topic_send);
+    if (message_from_send_topic!="quit")
+    {
+      cout << "The received string is " << message_from_send_topic << endl;
+      sendMessage(reply_message, topic_response);
+    } 
+    else
+    {
+      quit=true;
+      cout << "~~End of the program~~" << endl;
+      sendMessage(end_message, topic_response);
+    }
+  }
+/* The following code is the old example
   os_time delay_2ms = { 0, 2000000 };
   os_time delay_200ms = { 0, 200000000 };
   MsgSeq msgList;
@@ -54,21 +80,16 @@ int HelloWorldDataSubscriber(int argc, char *argv[])
 
   DDSEntityManager mgr;
 
-  // create domain participant
   mgr.createParticipant("HelloWorld example");
 
-  //create type
   MsgTypeSupport_var mt = new MsgTypeSupport();
   mgr.registerType(mt.in());
 
-  //create Topic
   char topic_name[] = "HelloWorldData_Msg";
   mgr.createTopic(topic_name);
 
-  //create Subscriber
   mgr.createSubscriber();
 
-  // create DataReader
   mgr.createReader();
 
   DataReader_var dreader = mgr.getReader();
@@ -80,7 +101,7 @@ int HelloWorldDataSubscriber(int argc, char *argv[])
   bool closed = false;
   ReturnCode_t status =  - 1;
   int count = 0;
-  while (!closed && count < 1500) // We dont want the example to run indefinitely
+  while (!closed && count < 1500) 
   {
     status = HelloWorldReader->take(msgList, infoSeq, LENGTH_UNLIMITED,
       ANY_SAMPLE_STATE, ANY_VIEW_STATE, ANY_INSTANCE_STATE);
@@ -100,12 +121,11 @@ int HelloWorldDataSubscriber(int argc, char *argv[])
 
   os_nanoSleep(delay_2ms);
 
-  //cleanup
   mgr.deleteReader();
   mgr.deleteSubscriber();
   mgr.deleteTopic();
   mgr.deleteParticipant();
-
+*/
   return 0;
 }
 
