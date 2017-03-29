@@ -16,7 +16,7 @@
 using namespace DDS;
 using namespace HelloWorldData;
 
-string getInformation(char *topic_name)
+string get_information(char *topic_name)
 {
   os_time delay_2ms = { 0, 2000000 };
   os_time delay_200ms = { 0, 200000000 };
@@ -82,7 +82,7 @@ string getInformation(char *topic_name)
   return retString;
 }
 
-void sendMessage(char *cmd, char *topic_name)
+void send_message(char *cmd, char *topic_name)
 {
   DDSEntityManager mgr;
 

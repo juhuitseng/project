@@ -56,8 +56,8 @@ int HelloWorldDataPublisher(int argc, char *argv[])
 
   char topic_send[] = "Send";
   char topic_response[] = "Response";
-  sendMessage(argv[1], topic_send);
-  string responseMessage = getInformation(topic_response);
+  send_message(argv[1], topic_send);
+  string responseMessage = get_information(topic_response);
   cout << "The response message is " << responseMessage << endl;
 
 

@@ -59,17 +59,17 @@ int HelloWorldDataSubscriber(int argc, char *argv[])
   cout << "Please input 'quit' to terminate the program!" << endl;
   while(!quit) 
   {
-    message_from_send_topic = getInformation(topic_send);
+    message_from_send_topic = get_information(topic_send);
     if (message_from_send_topic!="quit")
     {
       cout << "The received string is " << message_from_send_topic << endl;
-      sendMessage(reply_message, topic_response);
+      send_message(reply_message, topic_response);
     } 
     else
     {
       quit=true;
       cout << "~~End of the program~~" << endl;
-      sendMessage(end_message, topic_response);
+      send_message(end_message, topic_response);
     }
   }
 /* The following code is the old example
