@@ -1,0 +1,18 @@
+========================================================================================
+Report      : ERROR
+Date        : Wed Apr 19 06:23:24 CST 2017
+Description : handlePublications: participant not found, presumably already been deleted
+
+Node        : hope-VirtualBox
+Process     : sacpp_chess_sub <23217>
+Thread      : xmit.user 7f45835d2700
+Internals   : V6.4.140407OSS/3b83e82/3b83e82/ddsi2/q_main.c/1483/0/1492554204.680440734
+========================================================================================
+Report      : ERROR
+Date        : Wed Apr 19 06:27:12 CST 2017
+Description : handlePublications: participant not found, presumably already been deleted
+
+Node        : hope-VirtualBox
+Process     : sacpp_chess_sub <2952>
+Thread      : xmit.user 7f4e90ce6700
+Internals   : V6.4.140407OSS/3b83e82/3b83e82/ddsi2/q_main.c/1483/0/1492554432.906880145
